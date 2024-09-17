@@ -1,9 +1,11 @@
 using AuctionService.Data;
+using AuctionService.Data.Seed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,5 +36,15 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//executa o seeder
+try
+{
+    DbInitializer.InitiDb(app);
+}
+catch (Exception e) 
+{
+    Console.WriteLine(e.ToString());
+}
 
 app.Run();
