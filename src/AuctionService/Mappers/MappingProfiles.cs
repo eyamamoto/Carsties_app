@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace AuctionService.Mappers
 {
-    public class MappingProfiles:Profile
+    public class MappingProfiles : Profile
     {
         public MappingProfiles()
         {
@@ -13,7 +13,7 @@ namespace AuctionService.Mappers
             CreateMap<Item, AuctionDto>();
 
             CreateMap<CreateAuctionDto, Auction>()
-                .ForMember(d => d.Item, 
+                .ForMember(d => d.Item,
                     o => o.MapFrom(s => s));
 
             CreateMap<CreateAuctionDto, Item>();

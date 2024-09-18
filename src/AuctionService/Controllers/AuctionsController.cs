@@ -2,7 +2,6 @@
 using AuctionService.DTOs;
 using AuctionService.Entities;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -100,7 +99,7 @@ namespace AuctionService.Controllers
 
             if (!result) return BadRequest("could not update db");
 
-            return Ok();    
+            return Ok();
         }
     }
 }

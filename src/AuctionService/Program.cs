@@ -46,7 +46,7 @@ try
 {
     DbInitializer.InitiDb(app);
 }
-catch (Exception e) 
+catch (Exception e)
 {
     Console.WriteLine(e.ToString());
 }

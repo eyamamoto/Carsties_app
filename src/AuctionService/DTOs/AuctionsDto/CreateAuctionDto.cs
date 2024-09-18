@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AuctionService.DTOs
 {
-    
+
     public class CreateAuctionDto
     {
         [Required]
