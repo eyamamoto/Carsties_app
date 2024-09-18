@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MongoDB.Driver;
+using MongoDB.Entities;
+using SearchService.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,5 +29,15 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+//mongodb
+await DB.InitAsync("SearchDb",
+    MongoClientSettings.FromConnectionString(builder.Configuration.GetConnectionString("MongoDbConnection")));
+//cria o index da entidade
+await DB.Index<Item>()
+    .Key(x => x.Make, KeyType.Text)
+    .Key(x => x.Model, KeyType.Text)
+    .Key(x => x.Color, KeyType.Text)
+    .CreateAsync();
 
 app.Run();
