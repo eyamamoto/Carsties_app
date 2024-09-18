@@ -4,7 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 using MongoDB.Entities;
+using SearchService.Data;
 using SearchService.Models;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,14 +32,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//mongodb
-await DB.InitAsync("SearchDb",
-    MongoClientSettings.FromConnectionString(builder.Configuration.GetConnectionString("MongoDbConnection")));
-//cria o index da entidade
-await DB.Index<Item>()
-    .Key(x => x.Make, KeyType.Text)
-    .Key(x => x.Model, KeyType.Text)
-    .Key(x => x.Color, KeyType.Text)
-    .CreateAsync();
+try
+{
+    await DbInitializer.InitDb(app);
+}
+catch(Exception e)
+{
+    Console.WriteLine(e.ToString());
+}
+
 
 app.Run();
