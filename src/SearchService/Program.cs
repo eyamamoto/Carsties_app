@@ -1,13 +1,9 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MongoDB.Driver;
-using MongoDB.Entities;
 using Polly;
 using Polly.Extensions.Http;
 using SearchService.Data;
-using SearchService.Models;
 using SearchService.Service;
 using System;
 using System.Net.Http;

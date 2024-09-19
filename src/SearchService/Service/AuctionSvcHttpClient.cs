@@ -26,7 +26,7 @@ namespace SearchService.Service
                 .Project(x => x.UpdatedAt.ToString())
                 .ExecuteFirstAsync();
 
-            return await httpClient.GetFromJsonAsync<List<Item>>(config["AuctionServiceUrl"] + "/api/auctions?date="+lastUpdated);
+            return await httpClient.GetFromJsonAsync<List<Item>>(config["AuctionServiceUrl"] + "/api/auctions?date=" + lastUpdated);
         }
     }
 }

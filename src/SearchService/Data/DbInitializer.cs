@@ -6,9 +6,6 @@ using MongoDB.Entities;
 using SearchService.Models;
 using SearchService.Service;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SearchService.Data
@@ -35,8 +32,8 @@ namespace SearchService.Data
             var items = await httpClient.GetItemsForSearchDb();
 
             Console.WriteLine(items.Count + " returned from the auction service");
-            
-            if(items.Count > 0) await DB.SaveAsync(items);
+
+            if (items.Count > 0) await DB.SaveAsync(items);
 
             //if(count == 0)
             //{
@@ -46,7 +43,7 @@ namespace SearchService.Data
             //    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
             //    var items = JsonSerializer.Deserialize<List<Item>>(itemData, options);
-                
+
             //    await DB.SaveAsync(items);
             //}
         }
