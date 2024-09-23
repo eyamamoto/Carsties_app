@@ -25,6 +25,16 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //add mass transit
 builder.Services.AddMassTransit(x =>
 {
+    x.AddEntityFrameworkOutbox<AuctionDbContext>(o =>
+    {
+        //tenta enviar as mensagens que ficaram paradas no outbox
+        o.QueryDelay = TimeSpan.FromSeconds(10);
+
+        //seleciona o banco de dados para criar o outbox
+        o.UsePostgres();
+        o.UseBusOutbox();
+    });
+
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.ConfigureEndpoints(context);

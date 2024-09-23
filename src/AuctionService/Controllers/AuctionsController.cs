@@ -63,10 +63,12 @@ namespace AuctionService.Controllers
 
             _context.Auctions.Add(auction);
 
-            var result = await _context.SaveChangesAsync() > 0;
-
+            //manda o auction gravado para a fila, para ser consumido pelo serviço de pesquuisa
+            //com ou outbox do rabbit, tudo isso vai se transformar em uma transação só. se uma falhar, tudo falha, do contrário é entregue.
             var newAuction = _mapper.Map<AuctionDto>(auction);
             await publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
+
+            var result = await _context.SaveChangesAsync() > 0;
 
             if (!result) return BadRequest("Could not save changes to the DB");
 
