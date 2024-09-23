@@ -21,6 +21,7 @@ namespace SearchService.Consumers
         {
             Console.WriteLine("--> consuming auction created: " + context.Message.Id);
             var item = mapper.Map<Item>(context.Message);
+            if (item.Model == "Foo") throw new ArgumentException("Not foo allowed");
             await item.SaveAsync();
         }
     }
