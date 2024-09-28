@@ -40,7 +40,7 @@ public static class Config
                 AllowOfflineAccess = true,
                 AllowedScopes={"openid", "profile", "auctionApp"},
                 AccessTokenLifetime = 3600*24*30
-
+            }
             //// m2m client credentials flow client
             //new Client
             //{
