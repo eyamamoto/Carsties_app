@@ -55,5 +55,38 @@ namespace AuctionService.UnitTest
             Assert.Equal(10, result.Value.Count);
             Assert.IsType<ActionResult<List<AuctionDto>>>(result);
         }
+
+        [Fact]
+        public async Task GetAuctionById_WithValidGuid_ReturnsAuction()
+        {
+            //arrange
+            //cria 1 auctionDto e guarda na variavel
+            var auction = _fixture.Create<AuctionDto>();
+            //cria o mock do retorno da função do repositorio
+            _auctionRepo.Setup(repo => repo.GetAuctionByIdAsync(It.IsAny<Guid>())).ReturnsAsync(auction);
+
+            //act
+            //chama o metodo do controller
+            var result = await _controller.GetAuctionById(auction.Id);
+
+            //assert
+            Assert.Equal(auction.Make, result.Value.Make);
+            Assert.IsType<ActionResult<AuctionDto>>(result);
+        }
+
+        [Fact]
+        public async Task GetAuctionById_WithValidGuid_ReturnsNotFound()
+        {
+            //arrange
+            //cria o mock do retorno da função do repositorio
+            _auctionRepo.Setup(repo => repo.GetAuctionByIdAsync(It.IsAny<Guid>())).ReturnsAsync(value:null);
+
+            //act
+            //chama o metodo do controller
+            var result = await _controller.GetAuctionById(Guid.NewGuid());
+
+            //assert
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
     }
 }
