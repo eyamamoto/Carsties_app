@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "src\Iden
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayService", "src\GatewayService\GatewayService.csproj", "{ED656188-48A3-4107-82E3-BE8825F01DBC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{604AD5A1-B5EF-4C4A-8CE5-4E53D8253C7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.UnitTest", "tests\AuctionService\AuctionService.UnitTest.csproj", "{49445C89-F5EA-4465-A082-E8BAC2E052B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,16 @@ Global
 		{ED656188-48A3-4107-82E3-BE8825F01DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED656188-48A3-4107-82E3-BE8825F01DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED656188-48A3-4107-82E3-BE8825F01DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49445C89-F5EA-4465-A082-E8BAC2E052B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49445C89-F5EA-4465-A082-E8BAC2E052B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49445C89-F5EA-4465-A082-E8BAC2E052B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49445C89-F5EA-4465-A082-E8BAC2E052B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{49445C89-F5EA-4465-A082-E8BAC2E052B9} = {604AD5A1-B5EF-4C4A-8CE5-4E53D8253C7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {861C05D3-9F4B-40A8-8695-0B1CBFE60A90}
