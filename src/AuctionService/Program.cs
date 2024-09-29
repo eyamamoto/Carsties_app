@@ -100,3 +100,6 @@ catch (Exception e)
 }
 
 app.Run();
+
+//para testes AuctionService.IntegrationTests.Fixtures
+public partial class Program { }
