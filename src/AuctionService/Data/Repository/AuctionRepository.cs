@@ -22,7 +22,7 @@ namespace AuctionService.Data.Repository
         }
         public void AddAuction(Auction auction)
         {
-            throw new NotImplementedException();
+            context.Auctions.Add(auction);
         }
 
         public async Task<AuctionDto> GetAuctionByIdAsync(Guid id)

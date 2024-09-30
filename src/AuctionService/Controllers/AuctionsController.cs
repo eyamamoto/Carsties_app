@@ -49,24 +49,24 @@ namespace AuctionService.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<AuctionDto>> CreateAuction(CreateAuctionDto auctionDto)
+        public async Task<ActionResult<AuctionDto>> CreateAuction(CreateAuctionDto createAuctionDto)
         {
-            var auction = _mapper.Map<Auction>(auctionDto);
+            var auction = _mapper.Map<Auction>(createAuctionDto);
 
-            auction.Seller = User.Identity.Name;
+            auction.Seller = User.Identity?.Name ?? "Unknown user";
 
             _repository.AddAuction(auction);
 
-            //manda o auction gravado para a fila, para ser consumido pelo serviço de pesquuisa
-            //com ou outbox do rabbit, tudo isso vai se transformar em uma transação só. se uma falhar, tudo falha, do contrário é entregue.
             var newAuction = _mapper.Map<AuctionDto>(auction);
+
             await publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
 
             var result = await _repository.SaveChangesAsync();
 
-            if (!result) return BadRequest("Could not save changes to the DB");
+            if (!result) return BadRequest("Could not save changes to DB");
 
-            return CreatedAtAction(nameof(GetAuctionById), new { auction.Id }, _mapper.Map<AuctionDto>(auction));
+            return CreatedAtAction(nameof(GetAuctionById),
+                new { Id = auction.Id }, newAuction);
         }
 
         [Authorize]

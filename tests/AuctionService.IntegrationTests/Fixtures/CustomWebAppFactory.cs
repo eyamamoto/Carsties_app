@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Testcontainers.PostgreSql;
+using WebMotions.Fake.Authentication.JwtBearer;
 
 namespace AuctionService.IntegrationTests.Fixtures
 {
@@ -46,6 +47,14 @@ namespace AuctionService.IntegrationTests.Fixtures
 
                 //migration database && seed database
                 services.EnsureCreated<AuctionDbContext>();
+
+
+                //cria autenticação
+                services.AddAuthentication(FakeJwtBearerDefaults.AuthenticationScheme)
+                    .AddFakeJwtBearer(opt =>
+                    {
+                        opt.BearerValueType = FakeJwtBearerBearerValueType.Jwt;
+                    });
             });
         }
 
