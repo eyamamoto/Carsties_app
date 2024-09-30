@@ -20,7 +20,7 @@ namespace AuctionService.IntegrationTests.Util
         public static void ReinitDbForTests(AuctionDbContext dbContext) 
         {
             //apaga e reinicia o banco de dados do test containers
-            dbContext.Auctions.Remove(dbContext.Auctions);
+            dbContext.Auctions.RemoveRange();
             dbContext.SaveChanges();
             InitDbForTests(dbContext);
         }
