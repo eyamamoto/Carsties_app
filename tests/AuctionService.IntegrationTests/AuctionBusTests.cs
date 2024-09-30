@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace AuctionService.IntegrationTests
 {
-    public class AuctionBusTests : IClassFixture<CustomWebAppFactory>, IAsyncLifetime
+    [Collection("Shared collection")]
+    public class AuctionBusTests :  IAsyncLifetime
     {
         private readonly CustomWebAppFactory factory;
         private readonly HttpClient httpclient;
