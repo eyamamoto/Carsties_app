@@ -4,10 +4,11 @@
 import React from 'react'
 import CountdownTimer from './CountdownTimer'
 import CarImage from './CarImage'
+import { Auction } from '../types'
 
 //props
 type Props = {
-    auction:any
+    auction:Auction
 }
 
 export default function AuctionCard({auction}: Props) {

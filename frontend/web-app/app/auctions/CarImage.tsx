@@ -3,10 +3,11 @@
 
 import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
+import { Auction } from '../types'
 
 //props
 type Props = {
-    auction:any
+    auction:Auction
 }
 
 export default function CarImage({auction}: Props) {
