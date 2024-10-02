@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import AuctionCard from './AuctionCard';
 import { Auction, PagedResult } from '../types';
+import AppPagination from '../components/AppPagination';
 
 //carregar dados
 async function getData(): Promise<PagedResult<Auction>>{
@@ -16,10 +17,15 @@ export default async function Listings() {
     const data = await getData();
 
     return (
-        <div className='grid grid-cols-4 gap-5'>
-            {data && data.results.map((auction) => (
-                <AuctionCard key={auction.id} auction={auction} />
-            ))}
-        </div>
+        <Fragment>
+            <div className='grid grid-cols-4 gap-5'>
+                {data && data.results.map((auction) => (
+                    <AuctionCard key={auction.id} auction={auction} />
+                ))}
+            </div>
+            <div className='flex justify-center mt-4'>
+                <AppPagination currentPage={1} pageCount={data.pageCount}/>
+            </div>
+        </Fragment>
     )
 }
