@@ -10,6 +10,7 @@ import Filters from './Filters';
 import { useParamsStore } from '../hooks/useParamsStore';
 import { useShallow } from 'zustand/shallow';
 import qs from 'query-string'
+import EmptyFilter from '../components/EmptyFilter';
 
 export default function Listings() {
     // const [auctions, setAuctions] = useState<Auction[]>([]);
@@ -49,14 +50,20 @@ export default function Listings() {
     return (
         <Fragment>
             <Filters />
-            <div className='grid grid-cols-4 gap-5'>
-                {data.results.map((auction) => (
-                    <AuctionCard key={auction.id} auction={auction} />
-                ))}
-            </div>
-            <div className='flex justify-center mt-4'>
-                <AppPagination pageChanged={setPageNumber} currentPage={params.pageNumber} pageCount={data.pageCount}/>
-            </div>
+            {data.totalCount === 0 ? (
+                <EmptyFilter showReset />
+            ): (
+                <>
+                     <div className='grid grid-cols-4 gap-5'>
+                        {data.results.map((auction) => (
+                            <AuctionCard key={auction.id} auction={auction} />
+                        ))}
+                    </div>
+                    <div className='flex justify-center mt-4'>
+                        <AppPagination pageChanged={setPageNumber} currentPage={params.pageNumber} pageCount={data.pageCount}/>
+                    </div>
+                </>
+            )}
         </Fragment>
     )
 }
