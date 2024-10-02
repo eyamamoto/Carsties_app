@@ -24,7 +24,7 @@ export default function Listings() {
             state => ({
                 pageNumber:state.pageNumber,
                 pageSize:state.pageSize,
-                searchTherm:state.searchTerm
+                searchTerm:state.searchTerm
             })
         )
     );
