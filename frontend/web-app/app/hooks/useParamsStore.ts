@@ -8,7 +8,7 @@ type State = {
 }
 
 type Actions = {
-    steParams:(params: Partial<State>) => void
+    setParams:(params: Partial<State>) => void
     reset: () => void
 }   
 

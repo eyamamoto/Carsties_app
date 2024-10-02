@@ -6,7 +6,7 @@ const pageSizeButtons = [4,8,12];
 
 export default function Filters() {
     const pageSize = useParamsStore(state => state.pageSize);
-    const setParams = useParamsStore(state => state.steParams)
+    const setParams = useParamsStore(state => state.setParams)
 
   return (
     <div className='flex justify-between items-center mb-4'>

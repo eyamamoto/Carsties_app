@@ -29,7 +29,7 @@ export default function Listings() {
         )
     );
 
-    const setParams = useParamsStore(state => state.steParams);
+    const setParams = useParamsStore(state => state.setParams);
     const url = qs.stringifyUrl({url:'', query:params})
 
     function setPageNumber(pageNumber:number){
