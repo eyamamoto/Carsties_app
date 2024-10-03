@@ -19,6 +19,8 @@ export default function UserActions({user}:Props) {
     const pathname = usePathname();
     const setParams = useParamsStore(state => state.setParams);
 
+    //quando altera com setparams, os parametros de busca são alterados no store, que faz todo o processo de atualização do state acontecer
+    //realizando uma nova requisição com o parametro atualizado, set winner ou set seller
     function setWinner(){
         setParams({winner:user.username, seller:undefined})
         if(pathname !== "/") router.push("/")
