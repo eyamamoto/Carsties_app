@@ -11,7 +11,7 @@ export default async function Session() {
             <Heading title='Session dashboard' subtitle={''}/>
             <div className='bg-blue-200 border-2 border-blue-500'>
                 <h3 className='text-lg'>session Data</h3>
-                <pre>
+                <pre className='whitespace-pre-wrap break-all'>
                     {JSON.stringify(session, null, 2)}
                 </pre>
             </div>
