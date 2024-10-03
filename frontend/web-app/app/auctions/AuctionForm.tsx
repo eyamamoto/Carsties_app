@@ -1,13 +1,14 @@
 'use client'
 
-import { Button, TextInput } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import React, { useEffect } from 'react'
-import { FieldValue, FieldValues, useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
 import Input from '../components/Input';
+import DateInput from '../components/DateInput';
 
 export default function AuctionForm() {
     const {control, handleSubmit, setFocus, 
-        formState:{isSubmitting, isValid, isDirty, errors}} = useForm({
+        formState:{isSubmitting, isValid}} = useForm({
             //para validar quando clicar no botão mesmo se não digitar
             mode:'onTouched'
     });
@@ -36,7 +37,14 @@ export default function AuctionForm() {
 
             <div className='grid grid-cols-2 gap-3'>
                 <Input label='Reserve Price (enter 0 if no reserve)' name='reservePrice' control={control} type='number' rules={{required:'Reserve Price is required'}}/>
-                <Input label='Auction end date/time' name='auctionEnd' type='date' control={control} rules={{required:'Auction is required'}}/>
+                <DateInput 
+                    label='Auction end date/time' 
+                    name='auctionEnd' 
+                    dateFormat='dd MMMM yyyy h:hh a'
+                    showTimeSelect
+                    control={control} 
+                    rules={{required:'Auction end date is required'}}
+                />
             </div>
 
             <div className='flex justify-between'>
