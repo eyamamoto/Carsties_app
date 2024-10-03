@@ -1,6 +1,7 @@
 import { auth } from '@/auth'
 import React from 'react'
 import Heading from '../components/Heading';
+import AuthTest from './AuthTest';
 
 export default async function Session() {
     const session = await auth();
@@ -13,6 +14,9 @@ export default async function Session() {
                 <pre>
                     {JSON.stringify(session, null, 2)}
                 </pre>
+            </div>
+            <div className="mt-4">
+                <AuthTest/>
             </div>
         </div>
     )
