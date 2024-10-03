@@ -21,6 +21,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     ],
     //recuperando dados de sessão do usuario
     callbacks: {
+        //protegendo rotas
+        async authorized({auth}){
+            return !!auth
+        },
         async jwt({token, profile}){
             //console.log({token, user, account, profile})
             if(profile){
