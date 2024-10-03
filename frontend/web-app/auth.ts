@@ -6,6 +6,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     session:{
         strategy:'jwt'
     },
+    //providers de configuração do duende com auth.js
     providers: [
         DuendeIDS6Provider({
             id: 'id-server',
@@ -18,5 +19,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             idToken:true
         } as OIDCConfig<Omit<Profile, 'username'>>),
     ],
+    //recuperando dados de sessão do usuario
+    callbacks: {
+        async jwt({token, profile}){
+            //console.log({token, user, account, profile})
+            if(profile){
+                token.username = profile.username
+            }
+            return token;
+        },
+        async session({session, token}){
+            console.log({session, token})
+            if(token){
+                session.user.username = token.username;
+            }
+            return session;
+        }
+    }
 })
 
