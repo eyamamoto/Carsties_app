@@ -34,4 +34,8 @@ export async function updateAction(data:FieldValues, id:string) {
     return res;
 }
 
+export async function deleteAuction(id:string){
+    return await fetchWrapper.del(`auctions/${id}`)
+}
+
 //auctions/afbee524-5972-4075-8800-7d1f9d7b0a0c
