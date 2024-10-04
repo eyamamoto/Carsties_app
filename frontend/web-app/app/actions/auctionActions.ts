@@ -4,6 +4,7 @@
 import { Auction, PagedResult } from "../types";
 import { fetchWrapper } from "../libFetch/fetchWrapper";
 import { FieldValues } from "react-hook-form";
+import { revalidatePath } from "next/cache";
 
 //carregar dados
 export async function getData(query:string): Promise<PagedResult<Auction>>{
@@ -24,6 +25,13 @@ export async function createAuction(data:FieldValues){
 
 export async function getDetailedViewData(id:string): Promise<Auction>{
     return await fetchWrapper.get(`auctions/${id}`);
+}
+
+export async function updateAction(data:FieldValues, id:string) {
+    const res = await fetchWrapper.put(`auctions/${id}`, data)
+    //revalidate evita o cache para evitar problemas com diferença de dados na tela ao atualizar o formulário
+    revalidatePath(`/auctions/${id}`)
+    return res;
 }
 
 //auctions/afbee524-5972-4075-8800-7d1f9d7b0a0c
