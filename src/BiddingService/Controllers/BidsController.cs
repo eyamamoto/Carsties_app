@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BiddingService.DTOs;
 using BiddingService.Models;
+using Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +19,12 @@ namespace BiddingService.Controllers
     public class BidsController : ControllerBase
     {
         private readonly IMapper mapper;
+        private readonly IPublishEndpoint publishEndpoint;
 
-        public BidsController(IMapper mapper)
+        public BidsController(IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             this.mapper = mapper;
+            this.publishEndpoint = publishEndpoint;
         }
 
         [Authorize]
@@ -72,6 +76,9 @@ namespace BiddingService.Controllers
             }
 
             await DB.SaveAsync(bid);
+
+            //depois de salvar o lance, publica um evento no rabbitmq
+            await publishEndpoint.Publish(mapper.Map<BidPlaced>(bid));
 
             return Ok(mapper.Map<BidDto>(bid));
         }

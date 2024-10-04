@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BiddingService.DTOs;
 using BiddingService.Models;
+using Contracts;
 
 namespace BiddingService.Mappers
 {
@@ -9,6 +10,7 @@ namespace BiddingService.Mappers
         public MappingProfiles()
         {
             CreateMap<Bid, BidDto>();
+            CreateMap<Bid, BidPlaced>();
         }
     }
 }
