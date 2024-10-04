@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BiddingService.Controllers
@@ -64,5 +65,16 @@ namespace BiddingService.Controllers
 
             return Ok(bid);
         }
+    }
+
+    [HttpGet("{auctionId}")]
+    public async Task<ActionResult<List<Bid>>> GetBidsForAuction(string auctionId)
+    {
+        var bids = await DB.Find<Bid>()
+            .Match(a => a.AuctionId == auctionId)
+            .Sort(b => b.Ascending(a => a.BidTime))
+            .ExecuteAsync();
+
+
     }
 }
