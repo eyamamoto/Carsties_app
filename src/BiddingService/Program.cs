@@ -51,6 +51,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //serviço singleton de configuração de serviços de longa execução
 builder.Services.AddHostedService<CheckAuctionFinished>();
 
+//adicionando cliente do grpc
+builder.Services.AddScoped<GrpcAuctionClient>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

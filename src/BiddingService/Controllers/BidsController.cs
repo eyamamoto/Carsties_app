@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BiddingService.DTOs;
 using BiddingService.Models;
+using BiddingService.Services;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -20,11 +21,13 @@ namespace BiddingService.Controllers
     {
         private readonly IMapper mapper;
         private readonly IPublishEndpoint publishEndpoint;
+        private readonly GrpcAuctionClient grpcClient;
 
-        public BidsController(IMapper mapper, IPublishEndpoint publishEndpoint)
+        public BidsController(IMapper mapper, IPublishEndpoint publishEndpoint, GrpcAuctionClient grpcClient)
         {
             this.mapper = mapper;
             this.publishEndpoint = publishEndpoint;
+            this.grpcClient = grpcClient;
         }
 
         [Authorize]
@@ -35,8 +38,9 @@ namespace BiddingService.Controllers
 
             if(auction == null)
             {
-                //TODO check with auctionService if has auction
-                return NotFound();
+                //TODO check with auctionService if has auction with GRPC
+                auction = grpcClient.GetAuction(auctionId);
+                if (auction == null) return BadRequest("error in placebid grpc");
             }
 
             if(auction.Seller == User.Identity.Name)
