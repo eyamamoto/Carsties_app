@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionService.UnitTest", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionService.IntegrationTests", "tests\AuctionService.IntegrationTests\AuctionService.IntegrationTests.csproj", "{A3DC1FE4-49F3-4FAD-B7FF-9882D5641DA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiddingService", "src\BiddingService\BiddingService.csproj", "{11E91911-1F8F-48DD-8F5C-7DE57CB2D985}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiddingService", "src\BiddingService\BiddingService.csproj", "{11E91911-1F8F-48DD-8F5C-7DE57CB2D985}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "src\NotificationService\NotificationService.csproj", "{A06B0899-127E-4928-8FBD-FD2680BA2077}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{11E91911-1F8F-48DD-8F5C-7DE57CB2D985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11E91911-1F8F-48DD-8F5C-7DE57CB2D985}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11E91911-1F8F-48DD-8F5C-7DE57CB2D985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A06B0899-127E-4928-8FBD-FD2680BA2077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A06B0899-127E-4928-8FBD-FD2680BA2077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A06B0899-127E-4928-8FBD-FD2680BA2077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A06B0899-127E-4928-8FBD-FD2680BA2077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
