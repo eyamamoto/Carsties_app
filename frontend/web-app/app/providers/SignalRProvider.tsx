@@ -5,18 +5,28 @@ import { ReactNode, useCallback, useEffect, useRef } from 'react'
 import { useAuctionStore } from '../hooks/useActionStore'
 import { useBidStore } from '../hooks/useBidStore'
 import { useParams } from 'next/navigation'
-import { Bid } from '../types'
+import { Auction, Bid } from '../types'
+import { User } from 'next-auth'
+import toast from 'react-hot-toast'
+import AuctionCreatedToast from '../components/AuctionCreatedToast'
 
 type Props = {
     children: ReactNode
+    user: User | null
 }
 
-export default function SignalRProvider({children}:Props) {
+export default function SignalRProvider({children, user}:Props) {
 
     const connection = useRef<HubConnection | null>(null);
     const setCurrentPrice = useAuctionStore(state => state.setCurrentPrice);
     const addBid = useBidStore(state => state.addBid)
     const params = useParams<{id:string}>();
+
+    const handleAuctionCreated = useCallback((auction:Auction) =>{
+        if(user?.username !== auction.seller){
+            return toast(<AuctionCreatedToast auction={auction}/>, {duration:10000})
+        }
+    },[user?.username])
 
     //useCallback ver
     const handleBidPlaced = useCallback((bid :Bid ) =>{
@@ -43,13 +53,17 @@ export default function SignalRProvider({children}:Props) {
                 .catch((err: any) => console.log(err));
         }
 
+        //aqui o signalR é usado para escutar os eventos que chegam do servidor
         connection.current.on('BidPlaced', handleBidPlaced)
+
+        connection.current.on('AuctionCreated', handleAuctionCreated)
 
         return () => {
             connection.current?.off('BidPlaced', handleBidPlaced)
+            connection.current?.off('AuctionCreated', handleAuctionCreated)
         }
 
-    },[handleBidPlaced, setCurrentPrice])
+    },[handleAuctionCreated, handleBidPlaced, setCurrentPrice])
 
     return (
         children
