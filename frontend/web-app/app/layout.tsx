@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./nav/Navbar";
 import ToasterProvider from "./providers/ToasterProvider";
+import SignalRProvider from "./providers/SignalRProvider";
 
 export const metadata: Metadata = {
   title: "Leilão",
@@ -20,7 +21,9 @@ export default function RootLayout({
         <ToasterProvider/>
         <Navbar/>
         <main className="container mx-auto p-10">
-          {children}
+          <SignalRProvider>
+            {children}
+          </SignalRProvider>
         </main>
       </body>
     </html>

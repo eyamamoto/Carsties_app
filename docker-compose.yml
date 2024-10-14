@@ -100,7 +100,7 @@ services:
       - mongodb
       - rabbitmq
   notify-svc:
-    image: bid-svc:latest
+    image: notify-svc:latest
     build:
       context: .
       dockerfile: src/NotificationService/Dockerfile
