@@ -32,3 +32,11 @@ export type Auction = {
     amount:number
     bidStatus:string
 }
+
+export type AuctionFinished = {
+  itemSold:boolean
+  auctionId:string
+  winner?:string
+  seller:string
+  amount?:number
+}
