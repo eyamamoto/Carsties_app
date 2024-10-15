@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
@@ -16,9 +18,10 @@ import AuctionFinishedToast from '../components/AuctionFinishedToast'
 type Props = {
     children: ReactNode
     user: User | null
+    notifyUrl:string
 }
 
-export default function SignalRProvider({children, user}:Props) {
+export default function SignalRProvider({children, user, notifyUrl}:Props) {
 
     const connection = useRef<HubConnection | null>(null);
     const setCurrentPrice = useAuctionStore(state => state.setCurrentPrice);
@@ -59,7 +62,7 @@ export default function SignalRProvider({children, user}:Props) {
         if(!connection.current){
 
             connection.current = new HubConnectionBuilder()
-                .withUrl('http://localhost:6001/notifications')
+                .withUrl(notifyUrl)
                 .withAutomaticReconnect()
                 .build();
             
@@ -70,17 +73,16 @@ export default function SignalRProvider({children, user}:Props) {
 
         //aqui o signalR é usado para escutar os eventos que chegam do servidor
         connection.current.on('BidPlaced', handleBidPlaced)
-
         connection.current.on('AuctionCreated', handleAuctionCreated)
-
         connection.current.on('AuctionFinished', handleAuctionFinished)
+
         return () => {
             connection.current?.off('BidPlaced', handleBidPlaced)
             connection.current?.off('AuctionCreated', handleAuctionCreated)
             connection.current?.on('AuctionFinished', handleAuctionFinished)
         }
 
-    },[handleAuctionCreated, handleAuctionFinished, handleBidPlaced, setCurrentPrice])
+    },[handleAuctionCreated, handleAuctionFinished, handleBidPlaced, notifyUrl, setCurrentPrice])
 
     return (
         children
